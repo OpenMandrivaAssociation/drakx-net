@@ -1,5 +1,5 @@
 %define name drakx-net
-%define version 0.12
+%define version 0.13
 %define release %mkrel 1
 
 %define libname lib%{name}
@@ -80,6 +80,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/drakroam
 %{_sbindir}/drakhosts
 %{_sbindir}/drakids
+%{_sbindir}/draknetcenter
 %{_sbindir}/draknetprofile
 %{_sbindir}/draknfs
 %{_sbindir}/drakroam

@@ -1,6 +1,6 @@
 %define name drakx-net
 %define version 0.14
-%define release %mkrel 1
+%define release %mkrel 2
 
 %define libname lib%{name}
 
@@ -65,10 +65,37 @@ This package contains the Mandriva network tools library.
 %build
 %make
 
+
 %install
 rm -rf $RPM_BUILD_ROOT
 %makeinstall_std
 %find_lang %{name}
+
+# consolehelper config
+
+ln -s %{_bindir}/consolehelper %{buildroot}%{_bindir}/draknetcenter
+
+mkdir -p %{buildroot}%{_sysconfdir}/pam.d/
+mkdir -p %{buildroot}%{_sysconfdir}/security/console.apps/
+
+cat > %{buildroot}%{_sysconfdir}/pam.d/draknetcenter <<EOF
+#%PAM-1.0
+auth       sufficient   pam_rootok.so
+auth       required     pam_console.so
+auth       sufficient   pam_timestamp.so
+auth       include      system-auth
+account    required     pam_permit.so
+session    required     pam_permit.so
+session    optional     pam_xauth.so
+session    optional     pam_timestamp.so
+EOF
+
+cat > %{buildroot}%{_sysconfdir}/security/console.apps/draknetcenter <<EOF
+USER=<user>
+PROGRAM=/usr/sbin/draknetcenter
+FALLBACK=false
+SESSION=true
+EOF
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -78,6 +105,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc NEWS
 %{_bindir}/net_applet
 %{_bindir}/drakroam
+%{_bindir}/draknetcenter
 %{_sbindir}/drakhosts
 %{_sbindir}/drakids
 %{_sbindir}/draknetcenter
@@ -89,7 +117,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_prefix}/lib/libDrakX/network/ifw.pm
 %{_prefix}/lib/libDrakX/network/monitor.pm
 %config(noreplace) %{_sysconfdir}/pam.d/drakroam
+%config(noreplace) %{_sysconfdir}/pam.d/draknetcenter
 %config(noreplace) %{_sysconfdir}/security/console.apps/drakroam
+%config(noreplace) %{_sysconfdir}/security/console.apps/draknetcenter
 %{_sysconfdir}/X11/xinit.d/??net_applet
 %{_datadir}/applications/net_applet.desktop
 %{_datadir}/autostart/net_applet.desktop

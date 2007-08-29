@@ -72,7 +72,7 @@ rm -rf $RPM_BUILD_ROOT
 %find_lang %{name}
 
 # consolehelper config
-
+# ask for user password
 ln -s %{_bindir}/consolehelper %{buildroot}%{_bindir}/draknetcenter
 
 mkdir -p %{buildroot}%{_sysconfdir}/pam.d/
@@ -93,6 +93,27 @@ EOF
 cat > %{buildroot}%{_sysconfdir}/security/console.apps/draknetcenter <<EOF
 USER=<user>
 PROGRAM=/usr/sbin/draknetcenter
+FALLBACK=false
+SESSION=true
+EOF
+
+# drakconnect consolehelper config
+# ask for root password
+ln -s %{_bindir}/consolehelper %{buildroot}%{_bindir}/drakconnect
+cat > %{buildroot}%{_sysconfdir}/pam.d/drakconnect <<EOF
+#%PAM-1.0
+auth       sufficient   pam_rootok.so
+auth       required     pam_console.so
+auth       sufficient   pam_timestamp.so
+auth       include      system-auth
+account    required     pam_permit.so
+session    required     pam_permit.so
+session    optional     pam_xauth.so
+session    optional     pam_timestamp.so
+EOF
+cat > %{buildroot}%{_sysconfdir}/security/console.apps/drakconnect <<EOF
+USER=root
+PROGRAM=/usr/sbin/drakconnect
 FALLBACK=false
 SESSION=true
 EOF
@@ -128,6 +149,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/libDrakX/pixmaps/*.png
 
 %files text
+%config(noreplace) %{_sysconfdir}/pam.d/drakconnect
+%config(noreplace) %{_sysconfdir}/security/console.apps/drakconnect
+%{_bindir}/drakconnect
 %{_sbindir}/drakconnect
 %{_sbindir}/drakfirewall
 %{_sbindir}/drakgw

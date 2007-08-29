@@ -99,7 +99,7 @@ EOF
 
 # consolehelper config
 # ask for root password
-for pak in drakconnect drakgw; do
+for pak in drakconnect drakgw drakproxy drakvpn; do
         ln -s %{_bindir}/consolehelper %{buildroot}%{_bindir}/$pak
         cat > %{buildroot}%{_sysconfdir}/pam.d/$pak <<EOF
 #%PAM-1.0
@@ -153,10 +153,16 @@ rm -rf $RPM_BUILD_ROOT
 %files text
 %config(noreplace) %{_sysconfdir}/pam.d/drakconnect
 %config(noreplace) %{_sysconfdir}/pam.d/drakgw
+%config(noreplace) %{_sysconfdir}/pam.d/drakproxy
+%config(noreplace) %{_sysconfdir}/pam.d/drakvpn
 %config(noreplace) %{_sysconfdir}/security/console.apps/drakconnect
 %config(noreplace) %{_sysconfdir}/security/console.apps/drakgw
+%config(noreplace) %{_sysconfdir}/security/console.apps/drakproxy
+%config(noreplace) %{_sysconfdir}/security/console.apps/drakvpn
 %{_bindir}/drakconnect
 %{_bindir}/drakgw
+%{_bindir}/drakvpn
+%{_bindir}/drakproxy
 %{_sbindir}/drakconnect
 %{_sbindir}/drakfirewall
 %{_sbindir}/drakgw

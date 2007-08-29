@@ -97,10 +97,11 @@ FALLBACK=false
 SESSION=true
 EOF
 
-# drakconnect consolehelper config
+# consolehelper config
 # ask for root password
-ln -s %{_bindir}/consolehelper %{buildroot}%{_bindir}/drakconnect
-cat > %{buildroot}%{_sysconfdir}/pam.d/drakconnect <<EOF
+for pak in drakconnect drakgw; do
+        ln -s %{_bindir}/consolehelper %{buildroot}%{_bindir}/$pak
+        cat > %{buildroot}%{_sysconfdir}/pam.d/$pak <<EOF
 #%PAM-1.0
 auth       sufficient   pam_rootok.so
 auth       required     pam_console.so
@@ -111,12 +112,13 @@ session    required     pam_permit.so
 session    optional     pam_xauth.so
 session    optional     pam_timestamp.so
 EOF
-cat > %{buildroot}%{_sysconfdir}/security/console.apps/drakconnect <<EOF
+        cat > %{buildroot}%{_sysconfdir}/security/console.apps/$pak <<EOF
 USER=root
-PROGRAM=/usr/sbin/drakconnect
+PROGRAM=/usr/sbin/$pak
 FALLBACK=false
 SESSION=true
 EOF
+done
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -150,8 +152,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files text
 %config(noreplace) %{_sysconfdir}/pam.d/drakconnect
+%config(noreplace) %{_sysconfdir}/pam.d/drakgw
 %config(noreplace) %{_sysconfdir}/security/console.apps/drakconnect
+%config(noreplace) %{_sysconfdir}/security/console.apps/drakgw
 %{_bindir}/drakconnect
+%{_bindir}/drakgw
 %{_sbindir}/drakconnect
 %{_sbindir}/drakfirewall
 %{_sbindir}/drakgw

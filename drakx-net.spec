@@ -1,6 +1,6 @@
 %define name drakx-net
 %define version 0.14
-%define release %mkrel 3
+%define release %mkrel 4
 
 %define libname lib%{name}
 
@@ -99,7 +99,7 @@ EOF
 
 # consolehelper config
 # ask for root password
-for pak in drakconnect drakgw drakproxy drakvpn; do
+for pak in drakconnect drakgw drakproxy drakvpn drakhosts; do
         ln -s %{_bindir}/consolehelper %{buildroot}%{_bindir}/$pak
         cat > %{buildroot}%{_sysconfdir}/pam.d/$pak <<EOF
 #%PAM-1.0
@@ -129,6 +129,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/net_applet
 %{_bindir}/drakroam
 %{_bindir}/draknetcenter
+%{_bindir}/drakhosts
 %{_sbindir}/drakhosts
 %{_sbindir}/drakids
 %{_sbindir}/draknetcenter
@@ -141,8 +142,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_prefix}/lib/libDrakX/network/monitor.pm
 %config(noreplace) %{_sysconfdir}/pam.d/drakroam
 %config(noreplace) %{_sysconfdir}/pam.d/draknetcenter
+%config(noreplace) %{_sysconfdir}/pam.d/drakhosts
 %config(noreplace) %{_sysconfdir}/security/console.apps/drakroam
 %config(noreplace) %{_sysconfdir}/security/console.apps/draknetcenter
+%config(noreplace) %{_sysconfdir}/security/console.apps/drakhosts
 %{_sysconfdir}/X11/xinit.d/??net_applet
 %{_datadir}/applications/net_applet.desktop
 %{_datadir}/autostart/net_applet.desktop

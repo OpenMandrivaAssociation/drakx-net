@@ -1,6 +1,6 @@
 %define name drakx-net
-%define version 0.14
-%define release %mkrel 4
+%define version 0.15
+%define release %mkrel 1
 
 %define libname lib%{name}
 

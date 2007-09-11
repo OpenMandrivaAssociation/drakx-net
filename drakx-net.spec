@@ -4,6 +4,8 @@
 
 %define libname lib%{name}
 
+%define gtk_files (ifw|monitor).pm
+
 Summary: Mandriva network tools
 Name: %{name}
 Version: %{version}
@@ -70,7 +72,7 @@ This package contains the Mandriva network tools library.
 rm -rf $RPM_BUILD_ROOT
 %makeinstall_std
 
-(cd $RPM_BUILD_ROOT; ls -1 usr/lib/libDrakX/network/*.pm) | perl -ne '/(ifw|monitor).pm$/ ? print STDERR "/$_" : print "/$_"' > %{name}.list 2> %{name}-gtk.list
+(cd $RPM_BUILD_ROOT; ls -1 usr/lib/libDrakX/network/*.pm) | perl -ne 'm!/%{gtk_files}$! ? print STDERR "/$_" : print "/$_"' > %{name}.list 2> %{name}-gtk.list
 
 %find_lang %{name}
 cat %{name}.lang >> %{name}.list

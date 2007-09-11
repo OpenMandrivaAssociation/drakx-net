@@ -1,10 +1,10 @@
 %define name drakx-net
 %define version 0.15
-%define release %mkrel 1
+%define release %mkrel 2
 
 %define libname lib%{name}
 
-%define gtk_files (ifw|monitor).pm
+%define gtk_files (connection_manager|drakroam|ifw|monitor|netcenter).pm
 
 Summary: Mandriva network tools
 Name: %{name}

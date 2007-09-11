@@ -72,10 +72,10 @@ This package contains the Mandriva network tools library.
 rm -rf $RPM_BUILD_ROOT
 %makeinstall_std
 
-(cd $RPM_BUILD_ROOT; ls -1 usr/lib/libDrakX/network/*.pm) | perl -ne 'm!/%{gtk_files}$! ? print STDERR "/$_" : print "/$_"' > %{name}.list 2> %{name}-gtk.list
+(cd $RPM_BUILD_ROOT; ls -1 usr/lib/libDrakX/network/*.pm) | perl -ne 'm!/%{gtk_files}$! ? print STDERR "/$_" : print "/$_"' > %{name}-nogtk.list 2> %{name}-gtk.list
 
 %find_lang %{name}
-cat %{name}.lang >> %{name}.list
+cat %{name}-nogtk.list %{name}.lang > %{name}.list
 
 # consolehelper config
 # ask for user password
@@ -125,6 +125,12 @@ FALLBACK=false
 SESSION=true
 EOF
 done
+
+%check
+while read f; do
+      grep Gtk2 $RPM_BUILD_ROOT$f && exit 1
+done < %{name}-nogtk.list
+exit 0
 
 %clean
 rm -rf $RPM_BUILD_ROOT

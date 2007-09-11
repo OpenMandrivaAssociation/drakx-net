@@ -69,7 +69,11 @@ This package contains the Mandriva network tools library.
 %install
 rm -rf $RPM_BUILD_ROOT
 %makeinstall_std
+
+(cd $RPM_BUILD_ROOT; ls -1 usr/lib/libDrakX/network/*.pm) | perl -ne '/(ifw|monitor).pm$/ ? print STDERR "/$_" : print "/$_"' > %{name}.list 2> %{name}-gtk.list
+
 %find_lang %{name}
+cat %{name}.lang >> %{name}.list
 
 # consolehelper config
 # ask for user password
@@ -123,7 +127,7 @@ done
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files
+%files -f %{name}-gtk.list
 %defattr(-,root,root)
 %doc NEWS
 %{_bindir}/net_applet
@@ -138,8 +142,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_sbindir}/drakroam
 %{_sbindir}/draksambashare
 %{_sbindir}/net_monitor
-%{_prefix}/lib/libDrakX/network/ifw.pm
-%{_prefix}/lib/libDrakX/network/monitor.pm
 %config(noreplace) %{_sysconfdir}/pam.d/drakroam
 %config(noreplace) %{_sysconfdir}/pam.d/draknetcenter
 %config(noreplace) %{_sysconfdir}/pam.d/drakhosts
@@ -173,10 +175,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_sbindir}/drakproxy
 %{_sbindir}/drakvpn
 
-%files -n %{libname} -f %{name}.lang
+%files -n %{libname} -f %{name}.list
 %defattr(-,root,root)
-%exclude %{_prefix}/lib/libDrakX/network/ifw.pm
-%exclude %{_prefix}/lib/libDrakX/network/monitor.pm
-%{_prefix}/lib/libDrakX/network/*
+%{_prefix}/lib/libDrakX/network/connection
+%{_prefix}/lib/libDrakX/network/vpn
 
 

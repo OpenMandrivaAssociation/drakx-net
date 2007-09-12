@@ -1,6 +1,6 @@
 %define name drakx-net
 %define version 0.15
-%define release %mkrel 2
+%define release %mkrel 3
 
 %define libname lib%{name}
 
@@ -21,6 +21,7 @@ Requires: %{name}-text
 Requires: %{libname}
 Requires: netprofile
 Requires: perl-Gtk2-NotificationBubble
+Requires: usermode-consoleonly >= 1.92-4mdv2008.0
 Conflicts: drakxtools <= 10.4.83
 
 %description
@@ -84,17 +85,7 @@ ln -s %{_bindir}/consolehelper %{buildroot}%{_bindir}/draknetcenter
 mkdir -p %{buildroot}%{_sysconfdir}/pam.d/
 mkdir -p %{buildroot}%{_sysconfdir}/security/console.apps/
 
-cat > %{buildroot}%{_sysconfdir}/pam.d/draknetcenter <<EOF
-#%PAM-1.0
-auth       sufficient   pam_rootok.so
-auth       required     pam_console.so
-auth       sufficient   pam_timestamp.so
-auth       include      system-auth
-account    required     pam_permit.so
-session    required     pam_permit.so
-session    optional     pam_xauth.so
-session    optional     pam_timestamp.so
-EOF
+ln -sf %{_sysconfdir}/pam.d/mandriva-simple-auth %{buildroot}%{_sysconfdir}/pam.d/draknetcenter
 
 cat > %{buildroot}%{_sysconfdir}/security/console.apps/draknetcenter <<EOF
 USER=<user>
@@ -107,17 +98,7 @@ EOF
 # ask for root password
 for pak in drakconnect drakgw drakproxy drakvpn drakhosts; do
         ln -s %{_bindir}/consolehelper %{buildroot}%{_bindir}/$pak
-        cat > %{buildroot}%{_sysconfdir}/pam.d/$pak <<EOF
-#%PAM-1.0
-auth       sufficient   pam_rootok.so
-auth       required     pam_console.so
-auth       sufficient   pam_timestamp.so
-auth       include      system-auth
-account    required     pam_permit.so
-session    required     pam_permit.so
-session    optional     pam_xauth.so
-session    optional     pam_timestamp.so
-EOF
+        ln -sf %{_sysconfdir}/pam.d/mandriva-simple-auth %{buildroot}%{_sysconfdir}/pam.d/$pak
         cat > %{buildroot}%{_sysconfdir}/security/console.apps/$pak <<EOF
 USER=root
 PROGRAM=/usr/sbin/$pak
@@ -187,5 +168,4 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %{_prefix}/lib/libDrakX/network/connection
 %{_prefix}/lib/libDrakX/network/vpn
-
 

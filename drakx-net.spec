@@ -1,6 +1,6 @@
 %define name drakx-net
 %define version 0.15
-%define release %mkrel 3
+%define release %mkrel 4
 
 %define libname lib%{name}
 
@@ -35,6 +35,7 @@ net_monitor: connection monitoring
 Summary: Mandriva network text tools
 Group: System/Configuration/Networking
 Requires: drakxtools-curses
+Requires: %{libname}
 Conflicts: drakxtools-curses <= 10.4.83
 
 %description text

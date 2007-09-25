@@ -86,7 +86,7 @@ ln -s %{_bindir}/consolehelper %{buildroot}%{_bindir}/draknetcenter
 mkdir -p %{buildroot}%{_sysconfdir}/pam.d/
 mkdir -p %{buildroot}%{_sysconfdir}/security/console.apps/
 
-ln -sf %{_sysconfdir}/pam.d/mandriva-simple-auth %{buildroot}%{_sysconfdir}/pam.d/draknetcenter
+ln -sf %{_sysconfdir}/pam.d/mandriva-console-auth %{buildroot}%{_sysconfdir}/pam.d/draknetcenter
 
 cat > %{buildroot}%{_sysconfdir}/security/console.apps/draknetcenter <<EOF
 USER=<user>

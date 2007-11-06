@@ -169,4 +169,5 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %{_prefix}/lib/libDrakX/network/connection
 %{_prefix}/lib/libDrakX/network/vpn
+%dir %{_prefix}/lib/libDrakX/network/
 

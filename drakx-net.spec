@@ -58,6 +58,7 @@ drakvpn: VPN configuration (openvpn, vpnc)
 Summary: Mandriva network tools library
 Group: System/Configuration/Networking
 Requires: drakxtools-backend
+Requires: perl-Net-Telnet
 Conflicts: drakxtools-backend <= 10.4.83
 
 %description -n	%{libname}

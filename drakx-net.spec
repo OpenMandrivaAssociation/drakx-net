@@ -14,7 +14,6 @@ Source0: %{name}-%{version}.tar.bz2
 License: GPL
 Group: System/Configuration/Networking
 Url: http://wiki.mandriva.com/en/Tools
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildArch: noarch
 Requires: drakxtools >= 10.4.99-3mdv
 Requires: %{name}-text

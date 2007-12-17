@@ -71,10 +71,10 @@ This package contains the Mandriva network tools library.
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 %makeinstall_std
 
-(cd $RPM_BUILD_ROOT; ls -1 usr/lib/libDrakX/network/*.pm) | perl -ne 'm!/%{gtk_files}$! ? print STDERR "/$_" : print "/$_"' > %{name}-nogtk.list 2> %{name}-gtk.list
+(cd %{buildroot}; ls -1 usr/lib/libDrakX/network/*.pm) | perl -ne 'm!/%{gtk_files}$! ? print STDERR "/$_" : print "/$_"' > %{name}-nogtk.list 2> %{name}-gtk.list
 
 %find_lang %{name}
 cat %{name}-nogtk.list %{name}.lang > %{name}.list
@@ -110,12 +110,12 @@ done
 
 %check
 while read f; do
-      grep Gtk2 $RPM_BUILD_ROOT$f && exit 1
+      grep Gtk2 %{buildroot}$f && exit 1
 done < %{name}-nogtk.list
 exit 0
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files -f %{name}-gtk.list
 %defattr(-,root,root)
@@ -170,4 +170,3 @@ rm -rf $RPM_BUILD_ROOT
 %{_prefix}/lib/libDrakX/network/connection
 %{_prefix}/lib/libDrakX/network/vpn
 %dir %{_prefix}/lib/libDrakX/network/
-

@@ -18,7 +18,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildArch: noarch
 Requires: drakxtools >= 10.4.99-3mdv
 Requires: %{name}-text
-Requires: %{libname}
+Requires: %{libname} >= 0.24
 Requires: netprofile
 Requires: perl-Gtk2-NotificationBubble
 Requires: usermode-consoleonly >= 1.92-4mdv2008.0

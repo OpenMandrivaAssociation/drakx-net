@@ -21,6 +21,7 @@ Requires: %{name}-text
 Requires: %{libname} >= 0.24
 Requires: netprofile
 Requires: perl-Gtk2-NotificationBubble
+Requires: perl-Gtk2 >= 1.154
 Requires: usermode-consoleonly >= 1.92-4mdv2008.0
 Conflicts: drakxtools <= 10.4.83
 

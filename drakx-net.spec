@@ -17,8 +17,8 @@ Url: http://wiki.mandriva.com/en/Tools
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildArch: noarch
 Requires: drakxtools >= 10.4.99-3mdv
-Requires: %{name}-text
-Requires: %{libname} >= 0.24
+Requires: %{name}-text = %{version}
+Requires: %{libname} = %{version}
 Requires: netprofile
 Requires: perl-Gtk2-NotificationBubble
 Requires: perl-Gtk2 >= 1.154
@@ -36,7 +36,7 @@ net_monitor: connection monitoring
 Summary: Mandriva network text tools
 Group: System/Configuration/Networking
 Requires: drakxtools-curses
-Requires: %{libname}
+Requires: %{libname} = %{version}
 Conflicts: drakxtools-curses <= 10.4.83
 
 %description text

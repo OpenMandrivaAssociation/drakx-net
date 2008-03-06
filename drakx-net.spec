@@ -16,7 +16,7 @@ Group: System/Configuration/Networking
 Url: http://wiki.mandriva.com/en/Tools
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildArch: noarch
-Requires: drakxtools >= 10.4.99-3mdv
+Requires: drakxtools >= 10.10
 Requires: %{name}-text = %{version}
 Requires: %{libname} = %{version}
 Requires: netprofile

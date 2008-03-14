@@ -73,7 +73,6 @@ This package contains the Mandriva network tools library.
 %build
 %make
 
-
 %install
 rm -rf %{buildroot}
 %makeinstall_std

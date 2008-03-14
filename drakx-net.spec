@@ -1,6 +1,7 @@
 %define name drakx-net
 %define version 0.28
 %define release %mkrel 1
+%define drakxtools_ver 10.15
 
 %define libname lib%{name}
 
@@ -16,7 +17,7 @@ Group: System/Configuration/Networking
 Url: http://wiki.mandriva.com/en/Tools
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildArch: noarch
-Requires: drakxtools >= 10.10
+Requires: drakxtools >= %{drakxtools_ver}
 Requires: %{name}-text = %{version}
 Requires: %{libname} = %{version}
 Requires: netprofile
@@ -35,7 +36,7 @@ net_monitor: connection monitoring
 %package text
 Summary: Mandriva network text tools
 Group: System/Configuration/Networking
-Requires: drakxtools-curses
+Requires: drakxtools-curses >= %{drakxtools_ver}
 Requires: %{libname} = %{version}
 Conflicts: drakxtools-curses <= 10.4.83
 
@@ -58,7 +59,7 @@ drakvpn: VPN configuration (openvpn, vpnc)
 %package -n %{libname}
 Summary: Mandriva network tools library
 Group: System/Configuration/Networking
-Requires: drakxtools-backend
+Requires: drakxtools-backend >= %{drakxtools_ver}
 # require perl-Net-Telnet for OpenVPN connections (#36126):
 Requires: perl-Net-Telnet
 Conflicts: drakxtools-backend <= 10.4.83

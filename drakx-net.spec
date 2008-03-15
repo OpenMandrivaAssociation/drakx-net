@@ -147,6 +147,8 @@ rm -rf %{buildroot}
 %{_datadir}/gnome/autostart/net_applet.desktop
 %{_prefix}/lib/libDrakX/icons/*.png
 %{_datadir}/libDrakX/pixmaps/*.png
+%{_prefix}/lib/libDrakX/network/drakconnect/edit.pm
+%{_prefix}/lib/libDrakX/network/drakconnect/global.pm
 
 %files text
 %config(noreplace) %{_sysconfdir}/pam.d/drakconnect
@@ -173,3 +175,5 @@ rm -rf %{buildroot}
 %{_prefix}/lib/libDrakX/network/connection
 %{_prefix}/lib/libDrakX/network/vpn
 %dir %{_prefix}/lib/libDrakX/network/
+%dir %{_prefix}/lib/libDrakX/network/drakconnect/
+%{_prefix}/lib/libDrakX/network/drakconnect/delete.pm

@@ -38,6 +38,7 @@ Group: System/Configuration/Networking
 Requires: drakxtools-curses >= %{drakxtools_ver}
 Requires: %{libname} = %{version}
 Conflicts: drakxtools-curses <= 10.4.83
+Conflicts: mdkonline < 2.37
 
 %description text
 This package contains the Mandriva network tools that can be used in

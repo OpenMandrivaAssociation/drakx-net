@@ -1,5 +1,5 @@
 %define name drakx-net
-%define version 0.30
+%define version 0.31
 %define release %mkrel 1
 %define drakxtools_ver 10.15
 
@@ -11,7 +11,7 @@ Summary: Mandriva network tools
 Name: %{name}
 Version: %{version}
 Release: %{release}
-Source0: %{name}-%{version}.tar.lzma
+Source0: %{name}-%{version}.tar.bz2
 License: GPL
 Group: System/Configuration/Networking
 Url: http://wiki.mandriva.com/en/Tools

@@ -5,7 +5,7 @@
 
 %define libname lib%{name}
 
-%define gtk_files (connection_manager|drakroam|ifw|monitor|netcenter).pm
+%define gtk_files (connection_manager|drakroam|ifw|monitor|netcenter|drakconnect/edit|drakconnect/global).pm
 
 Summary: Mandriva network tools
 Name: %{name}
@@ -77,7 +77,7 @@ This package contains the Mandriva network tools library.
 rm -rf %{buildroot}
 %makeinstall_std
 
-(cd %{buildroot}; ls -1 usr/lib/libDrakX/network/*.pm) | perl -ne 'm!/%{gtk_files}$! ? print STDERR "/$_" : print "/$_"' > %{name}-nogtk.list 2> %{name}-gtk.list
+(cd %{buildroot}; find usr/lib/libDrakX/network/ -type f -name '*.pm') | perl -ne 'm!/%{gtk_files}$! ? print STDERR "/$_" : print "/$_"' > %{name}-nogtk.list 2> %{name}-gtk.list
 
 %find_lang %{name}
 cat %{name}-nogtk.list %{name}.lang > %{name}.list
@@ -147,8 +147,6 @@ rm -rf %{buildroot}
 %{_datadir}/gnome/autostart/net_applet.desktop
 %{_prefix}/lib/libDrakX/icons/*.png
 %{_datadir}/libDrakX/pixmaps/*.png
-%{_prefix}/lib/libDrakX/network/drakconnect/edit.pm
-%{_prefix}/lib/libDrakX/network/drakconnect/global.pm
 
 %files text
 %config(noreplace) %{_sysconfdir}/pam.d/drakconnect
@@ -172,8 +170,7 @@ rm -rf %{buildroot}
 
 %files -n %{libname} -f %{name}.list
 %defattr(-,root,root)
-%{_prefix}/lib/libDrakX/network/connection
-%{_prefix}/lib/libDrakX/network/vpn
 %dir %{_prefix}/lib/libDrakX/network/
+%dir %{_prefix}/lib/libDrakX/network/connection
 %dir %{_prefix}/lib/libDrakX/network/drakconnect/
-%{_prefix}/lib/libDrakX/network/drakconnect/delete.pm
+%dir %{_prefix}/lib/libDrakX/network/vpn

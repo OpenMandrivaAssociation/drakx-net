@@ -142,6 +142,7 @@ rm -rf %{buildroot}
 %config(noreplace) %{_sysconfdir}/security/console.apps/draknetcenter
 %config(noreplace) %{_sysconfdir}/security/console.apps/drakhosts
 %{_sysconfdir}/X11/xinit.d/??net_applet
+%{_datadir}/applications/draknetcenter.desktop
 %{_datadir}/applications/net_applet.desktop
 %{_datadir}/autostart/net_applet.desktop
 %{_datadir}/gnome/autostart/net_applet.desktop

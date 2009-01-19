@@ -1,5 +1,5 @@
 %define name drakx-net
-%define version 0.57
+%define version 0.58
 %define release %mkrel 1
 %define drakxtools_ver 10.15
 
@@ -56,6 +56,8 @@ drakproxy: proxies configuration
 
 drakvpn: VPN configuration (openvpn, vpnc)
 
+draknetadvanced: advanced network configuration (IPv6, tcp window scaling).
+
 
 %package -n %{libname}
 Summary: Mandriva network tools library
@@ -101,7 +103,7 @@ EOF
 
 # consolehelper config
 # ask for root password
-for pak in drakconnect drakgw drakproxy drakvpn drakhosts; do
+for pak in drakconnect drakgw drakproxy draknetadvanced drakvpn drakhosts; do
         ln -s %{_bindir}/consolehelper %{buildroot}%{_bindir}/$pak
         ln -sf %{_sysconfdir}/pam.d/mandriva-simple-auth %{buildroot}%{_sysconfdir}/pam.d/$pak
         cat > %{buildroot}%{_sysconfdir}/security/console.apps/$pak <<EOF
@@ -154,20 +156,24 @@ rm -rf %{buildroot}
 %config(noreplace) %{_sysconfdir}/pam.d/drakconnect
 %config(noreplace) %{_sysconfdir}/pam.d/drakgw
 %config(noreplace) %{_sysconfdir}/pam.d/drakproxy
+%config(noreplace) %{_sysconfdir}/pam.d/draknetadvanced
 %config(noreplace) %{_sysconfdir}/pam.d/drakvpn
 %config(noreplace) %{_sysconfdir}/security/console.apps/drakconnect
 %config(noreplace) %{_sysconfdir}/security/console.apps/drakgw
 %config(noreplace) %{_sysconfdir}/security/console.apps/drakproxy
+%config(noreplace) %{_sysconfdir}/security/console.apps/draknetadvanced
 %config(noreplace) %{_sysconfdir}/security/console.apps/drakvpn
 %{_bindir}/drakconnect
 %{_bindir}/drakgw
 %{_bindir}/drakvpn
 %{_bindir}/drakproxy
+%{_bindir}/draknetadvanced
 %{_sbindir}/drakconnect
 %{_sbindir}/drakfirewall
 %{_sbindir}/drakgw
 %{_sbindir}/drakinvictus
 %{_sbindir}/drakproxy
+%{_sbindir}/draknetadvanced
 %{_sbindir}/drakvpn
 
 %files -n %{libname} -f %{name}.list

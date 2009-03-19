@@ -1,5 +1,5 @@
 %define name drakx-net
-%define version 0.71
+%define version 0.72
 %define release %mkrel 1
 %define drakxtools_ver 10.15
 
@@ -63,6 +63,10 @@ Group: System/Configuration/Networking
 Requires: drakxtools-backend >= %{drakxtools_ver}
 # require perl-Net-Telnet for OpenVPN connections (#36126):
 Requires: perl-Net-Telnet
+# Require crda, iw and wireless-regdb for CRDA domain settings (#47324)
+Requires: crda
+Requires: iw
+Requires: wireless-regdb
 Conflicts: drakxtools-backend <= 10.4.83
 
 %description -n	%{libname}

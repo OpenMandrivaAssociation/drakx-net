@@ -105,7 +105,7 @@ EOF
 
 # consolehelper config
 # ask for root password
-for pak in drakconnect drakgw drakproxy drakvpn drakhosts; do
+for pak in drakconnect drakgw drakroam drakproxy drakvpn drakhosts; do
         ln -s %{_bindir}/consolehelper %{buildroot}%{_bindir}/$pak
         ln -sf %{_sysconfdir}/pam.d/mandriva-simple-auth %{buildroot}%{_sysconfdir}/pam.d/$pak
         cat > %{buildroot}%{_sysconfdir}/security/console.apps/$pak <<EOF

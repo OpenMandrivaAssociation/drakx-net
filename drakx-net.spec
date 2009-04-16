@@ -1,5 +1,5 @@
 %define name drakx-net
-%define version 0.74.3
+%define version 0.74.4
 %define release %mkrel 1
 %define drakxtools_ver 10.15
 

@@ -1,5 +1,5 @@
 %define name drakx-net
-%define version 0.77
+%define version 0.78
 %define release %mkrel 1
 %define drakxtools_ver 12.36
 
@@ -21,7 +21,7 @@ BuildRequires: intltool
 Requires: drakxtools >= %{drakxtools_ver}
 Requires: %{name}-text = %{version}
 Requires: %{libname} = %{version}
-Requires: netprofile
+Requires: netprofile >= 0.20
 Requires: perl-Gtk2 >= 1.154
 Requires: usermode-consoleonly >= 1.92-4mdv2008.0
 Conflicts: drakxtools <= 10.4.83
@@ -105,7 +105,7 @@ EOF
 
 # consolehelper config
 # ask for root password
-for pak in drakconnect drakgw drakroam drakproxy drakvpn drakhosts; do
+for pak in drakconnect drakgw drakroam draknetprofile drakproxy drakvpn drakhosts; do
         ln -s %{_bindir}/consolehelper %{buildroot}%{_bindir}/$pak
         ln -sf %{_sysconfdir}/pam.d/mandriva-simple-auth %{buildroot}%{_sysconfdir}/pam.d/$pak
         cat > %{buildroot}%{_sysconfdir}/security/console.apps/$pak <<EOF
@@ -131,6 +131,7 @@ rm -rf %{buildroot}
 %{_bindir}/net_applet
 %{_bindir}/drakroam
 %{_bindir}/draknetcenter
+%{_bindir}/draknetprofile
 %{_bindir}/drakhosts
 %{_sbindir}/drakhosts
 %{_sbindir}/drakids
@@ -142,8 +143,10 @@ rm -rf %{buildroot}
 %{_sbindir}/net_monitor
 %config(noreplace) %{_sysconfdir}/pam.d/drakroam
 %config(noreplace) %{_sysconfdir}/pam.d/draknetcenter
+%config(noreplace) %{_sysconfdir}/pam.d/draknetprofile
 %config(noreplace) %{_sysconfdir}/pam.d/drakhosts
 %config(noreplace) %{_sysconfdir}/security/console.apps/drakroam
+%config(noreplace) %{_sysconfdir}/security/console.apps/draknetprofile
 %config(noreplace) %{_sysconfdir}/security/console.apps/draknetcenter
 %config(noreplace) %{_sysconfdir}/security/console.apps/drakhosts
 %{_sysconfdir}/X11/xinit.d/??net_applet

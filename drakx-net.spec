@@ -1,5 +1,5 @@
 %define name drakx-net
-%define version 0.83
+%define version 0.84
 %define release %mkrel 1
 %define drakxtools_ver 12.36
 
@@ -25,13 +25,12 @@ Requires: netprofile >= 0.20
 Requires: perl-Gtk2 >= 1.154
 Requires: usermode-consoleonly >= 1.92-4mdv2008.0
 Conflicts: drakxtools <= 10.4.83
+Suggests: net_monitor
 
 %description
 This package contains the Mandriva network tools.
 
 net_applet: applet to check network connection
-
-net_monitor: connection monitoring
 
 %package text
 Summary: Mandriva network text tools
@@ -140,7 +139,6 @@ rm -rf %{buildroot}
 %{_sbindir}/draknfs
 %{_sbindir}/drakroam
 %{_sbindir}/draksambashare
-%{_sbindir}/net_monitor
 %config(noreplace) %{_sysconfdir}/pam.d/drakroam
 %config(noreplace) %{_sysconfdir}/pam.d/draknetcenter
 %config(noreplace) %{_sysconfdir}/pam.d/draknetprofile

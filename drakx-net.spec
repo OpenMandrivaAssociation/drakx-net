@@ -12,6 +12,7 @@ Name: %{name}
 Version: %{version}
 Release: %{release}
 Source0: %{name}-%{version}.tar.bz2
+Patch0: %{name}-0.86.1-static-gateway.patch
 License: GPL
 Group: System/Configuration/Networking
 Url: http://wiki.mandriva.com/en/Tools
@@ -73,6 +74,7 @@ This package contains the Mandriva network tools library.
 
 %prep
 %setup -q
+%patch0 -p1 -b .static-gateway
 
 %build
 %make

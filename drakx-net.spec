@@ -75,8 +75,8 @@ This package contains the Mandriva network tools library.
 
 %prep
 %setup -q
-%patch0 -p1 -b .static-gateway
-%patch1 -p1 -b .prism54
+%patch0 -p1
+%patch1 -p1
 
 %build
 %make

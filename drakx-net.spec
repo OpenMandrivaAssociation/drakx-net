@@ -1,6 +1,6 @@
 %define name drakx-net
 %define version 0.90
-%define release %mkrel 2
+%define release %mkrel 3
 %define drakxtools_ver 12.36
 
 %define libname lib%{name}
@@ -26,6 +26,7 @@ Requires: perl-Gtk2 >= 1.154
 Requires: usermode-consoleonly >= 1.92-4mdv2008.0
 Conflicts: drakxtools <= 10.4.83
 Suggests: net_monitor
+Suggests: drakx-net-applet
 
 %description
 This package contains the Mandriva network tools.
@@ -55,6 +56,13 @@ drakproxy: proxies configuration
 
 drakvpn: VPN configuration (openvpn, vpnc)
 
+%package applet
+Summary: Mandriva network applet
+Group: System/Configuration/Networking
+Requires: %{name} = %{version}-%{release}
+
+%description applet
+This package contains the Mandriva network applet.
 
 %package -n %{libname}
 Summary: Mandriva network tools library
@@ -127,7 +135,6 @@ rm -rf %{buildroot}
 %files -f %{name}-gtk.list
 %defattr(-,root,root)
 %doc NEWS
-%{_bindir}/net_applet
 %{_bindir}/drakroam
 %{_bindir}/draknetcenter
 %{_bindir}/draknetprofile
@@ -147,11 +154,7 @@ rm -rf %{buildroot}
 %config(noreplace) %{_sysconfdir}/security/console.apps/draknetprofile
 %config(noreplace) %{_sysconfdir}/security/console.apps/draknetcenter
 %config(noreplace) %{_sysconfdir}/security/console.apps/drakhosts
-%{_sysconfdir}/X11/xinit.d/??net_applet
 %{_datadir}/applications/draknetcenter.desktop
-%{_datadir}/applications/net_applet.desktop
-%{_datadir}/autostart/net_applet.desktop
-%{_datadir}/gnome/autostart/net_applet.desktop
 %{_prefix}/lib/libDrakX/icons/*.png
 %{_datadir}/libDrakX/pixmaps/*.png
 
@@ -181,3 +184,10 @@ rm -rf %{buildroot}
 %dir %{_prefix}/lib/libDrakX/network/connection
 %dir %{_prefix}/lib/libDrakX/network/drakconnect/
 %dir %{_prefix}/lib/libDrakX/network/vpn
+
+%files applet
+%{_bindir}/net_applet
+%{_sysconfdir}/X11/xinit.d/??net_applet
+%{_datadir}/applications/net_applet.desktop
+%{_datadir}/autostart/net_applet.desktop
+%{_datadir}/gnome/autostart/net_applet.desktop

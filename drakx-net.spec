@@ -1,5 +1,5 @@
 %define name drakx-net
-%define version 0.92
+%define version 0.93
 %define release %mkrel 1
 %define drakxtools_ver 12.36
 
@@ -187,7 +187,5 @@ rm -rf %{buildroot}
 
 %files applet
 %{_bindir}/net_applet
-%{_sysconfdir}/X11/xinit.d/??net_applet
 %{_datadir}/applications/net_applet.desktop
-%{_datadir}/autostart/net_applet.desktop
-%{_datadir}/gnome/autostart/net_applet.desktop
+%{_sysconfdir}/xdg/autostart/net_applet.desktop

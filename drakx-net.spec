@@ -1,6 +1,6 @@
 %define name drakx-net
 %define version 0.93
-%define release %mkrel 4
+%define release %mkrel 5
 %define drakxtools_ver 12.36
 
 %define libname lib%{name}
@@ -12,6 +12,7 @@ Name: %{name}
 Version: %{version}
 Release: %{release}
 Source0: %{name}-%{version}.tar.bz2
+Patch0:  drakx-net-ru.po.patch
 License: GPL
 Group: System/Configuration/Networking
 Url: http://wiki.mandriva.com/en/Tools
@@ -81,6 +82,8 @@ This package contains the Mandriva network tools library.
 
 %prep
 %setup -q
+# drakx-net-ru.po.patch
+%patch0 -p1 -b .rul10n
 
 %build
 %make

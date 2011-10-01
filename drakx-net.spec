@@ -94,6 +94,9 @@ This package contains the Mandriva network tools library.
 rm -rf %{buildroot}
 %makeinstall_std
 
+#fix ugly error with patch
+rm -f %{buildroot}/usr/lib/libDrakX/network/tools.pm.0002~
+
 (cd %{buildroot}; find usr/lib/libDrakX/network/ -type f -name '*.pm') | perl -ne 'm!/%{gtk_files}$! ? print STDERR "/$_" : print "/$_"' > %{name}-nogtk.list 2> %{name}-gtk.list
 
 %find_lang %{name}
@@ -187,6 +190,8 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %dir %{_prefix}/lib/libDrakX/network/
 %dir %{_prefix}/lib/libDrakX/network/connection
+%dir %{_prefix}/lib/libDrakX/network/connection/isdn
+%dir %{_prefix}/lib/libDrakX/network/connection/providers
 %dir %{_prefix}/lib/libDrakX/network/drakconnect
 %dir %{_prefix}/lib/libDrakX/network/vpn
 

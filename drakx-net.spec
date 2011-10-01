@@ -1,7 +1,7 @@
 %define name drakx-net
 %define version 0.93
 %define subrel 1
-%define release %mkrel 6
+%define release %mkrel 7
 %define drakxtools_ver 12.36
 
 %define libname lib%{name}
@@ -15,6 +15,7 @@ Release: %{release}
 Source0: %{name}-%{version}.tar.bz2
 Patch0:  drakx-net-ru.po.patch
 Patch1:  drakx-net-0.93.fwdisable.patch
+Patch2:	 drakx-net-0.93-kernel.patch
 License: GPL
 Group: System/Configuration/Networking
 Url: http://wiki.mandriva.com/en/Tools
@@ -186,7 +187,7 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %dir %{_prefix}/lib/libDrakX/network/
 %dir %{_prefix}/lib/libDrakX/network/connection
-%dir %{_prefix}/lib/libDrakX/network/drakconnect/
+%dir %{_prefix}/lib/libDrakX/network/drakconnect
 %dir %{_prefix}/lib/libDrakX/network/vpn
 
 %files applet

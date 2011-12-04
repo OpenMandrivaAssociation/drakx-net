@@ -1,7 +1,7 @@
 %define name drakx-net
 %define version 0.93
 %define subrel 1
-%define release %mkrel 13
+%define release %mkrel 14
 %define drakxtools_ver 12.36
 
 %define libname lib%{name}
@@ -16,6 +16,8 @@ Source0: %{name}-%{version}.tar.bz2
 Patch0:  drakx-net-ru.po.patch
 Patch1:  drakx-net-0.93.fwdisable.patch
 Patch2:	 drakx-net-0.93-kernel.patch
+Patch3:	 drakx-net-shorewall-systemd.patch
+#Patch4:	 drakx-net-0.93-b43.patch
 License: GPL
 Group: System/Configuration/Networking
 Url: http://wiki.mandriva.com/en/Tools
@@ -95,7 +97,8 @@ rm -rf %{buildroot}
 %makeinstall_std
 
 #fix ugly error with patch
-rm -f %{buildroot}/usr/lib/libDrakX/network/tools.pm.0002~
+rm -f %{buildroot}/usr/lib/libDrakX/network/*pm*~
+rm -f %{buildroot}/usr/lib/libDrakX/network/connection/*pm*~
 
 (cd %{buildroot}; find usr/lib/libDrakX/network/ -type f -name '*.pm') | perl -ne 'm!/%{gtk_files}$! ? print STDERR "/$_" : print "/$_"' > %{name}-nogtk.list 2> %{name}-gtk.list
 

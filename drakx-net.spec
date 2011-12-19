@@ -1,7 +1,7 @@
 %define name drakx-net
-%define version 0.93
+%define version 0.94
 %define subrel 1
-%define release %mkrel 14
+%define release %mkrel 1
 %define drakxtools_ver 12.36
 
 %define libname lib%{name}
@@ -13,11 +13,6 @@ Name: %{name}
 Version: %{version}
 Release: %{release}
 Source0: %{name}-%{version}.tar.bz2
-Patch0:  drakx-net-ru.po.patch
-Patch1:  drakx-net-0.93.fwdisable.patch
-Patch2:	 drakx-net-0.93-kernel.patch
-Patch3:	 drakx-net-shorewall-systemd.patch
-#Patch4:	 drakx-net-0.93-b43.patch
 License: GPL
 Group: System/Configuration/Networking
 Url: http://wiki.mandriva.com/en/Tools
@@ -87,7 +82,6 @@ This package contains the Mandriva network tools library.
 
 %prep
 %setup -q
-%apply_patches
 
 %build
 %make
@@ -102,7 +96,7 @@ rm -f %{buildroot}/usr/lib/libDrakX/network/connection/*pm*~
 
 (cd %{buildroot}; find usr/lib/libDrakX/network/ -type f -name '*.pm') | perl -ne 'm!/%{gtk_files}$! ? print STDERR "/$_" : print "/$_"' > %{name}-nogtk.list 2> %{name}-gtk.list
 
-%find_lang %{name}
+%find_lang %{name} %{name}.lang
 cat %{name}-nogtk.list %{name}.lang > %{name}.list
 
 # consolehelper config

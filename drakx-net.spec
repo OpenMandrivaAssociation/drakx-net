@@ -1,7 +1,7 @@
 %define name drakx-net
 %define version 0.96
 %define subrel 1
-%define release %mkrel 1
+%define release 2
 %define drakxtools_ver 12.36
 
 %define libname lib%{name}
@@ -13,6 +13,7 @@ Name: %{name}
 Version: %{version}
 Release: %{release}
 Source0: %{name}-%{version}.tar.bz2
+Patch0:	 %{name}-nm-applet-disable-with-NM.patch
 License: GPL
 Group: System/Configuration/Networking
 Url: http://wiki.mandriva.com/en/Tools
@@ -82,6 +83,7 @@ This package contains the Mandriva network tools library.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %make

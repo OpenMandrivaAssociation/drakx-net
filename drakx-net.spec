@@ -1,49 +1,44 @@
-%define name drakx-net
-%define version 0.98
-%define subrel 1
-%define release 1
 %define drakxtools_ver 12.36
 
 %define libname lib%{name}
 
 %define gtk_files (connection_manager|drakroam|ifw|monitor|netcenter|drakconnect/edit|drakconnect/global).pm
 
-Summary: Mandriva network tools
-Name: %{name}
-Version: %{version}
-Release: %{release}
-Source0: %{name}-%{version}.tar.xz
-Patch0:	 %{name}-nm-applet-disable-with-NM.patch
-License: GPL
-Group: System/Configuration/Networking
-Url: http://wiki.mandriva.com/en/Tools
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
-BuildArch: noarch
-BuildRequires: intltool
-Requires: drakxtools >= %{drakxtools_ver}
-Requires: %{name}-text = %{version}
-Requires: %{libname} = %{version}
-Requires: netprofile >= 0.20
-Requires: perl-Gtk2 >= 1.154
-Requires: usermode-consoleonly >= 1.92-4mdv2008.0
-Conflicts: drakxtools <= 10.4.83
-Suggests: net_monitor
-Suggests: %{name}-applet
+Summary:	Mandriva network tools
+Name:		drakx-net
+Version:	0.98
+Release:	1
+Source0:	%{name}-%{version}.tar.xz
+Patch0:		%{name}-nm-applet-disable-with-NM.patch
+License:	GPL
+Group:		System/Configuration/Networking
+Url:		http://wiki.mandriva.com/en/Tools
+BuildArch:	noarch
+BuildRequires:	intltool
+Requires:	drakxtools >= %{drakxtools_ver}
+Requires:	%{name}-text = %{version}
+Requires:	%{libname} = %{version}
+Requires:	netprofile >= 0.20
+Requires:	perl-Gtk2 >= 1.154
+Requires:	usermode-consoleonly >= 1.92-4mdv2008.0
+Conflicts:	drakxtools <= 10.4.83
+Suggests:	net_monitor
+Suggests:	%{name}-applet
 
 %description
 This package contains the Mandriva network tools.
 
 net_applet: applet to check network connection
 
-%package text
-Summary: Mandriva network text tools
-Group: System/Configuration/Networking
-Requires: drakxtools-curses >= %{drakxtools_ver}
-Requires: %{libname} = %{version}
-Conflicts: drakxtools-curses <= 10.4.83
-Conflicts: mdkonline < 2.37
+%package	text
+Summary:	Mandriva network text tools
+Group:		System/Configuration/Networking
+Requires:	drakxtools-curses >= %{drakxtools_ver}
+Requires:	%{libname} = %{version}
+Conflicts:	drakxtools-curses <= 10.4.83
+Conflicts:	mdkonline < 2.37
 
-%description text
+%description	text
 This package contains the Mandriva network tools that can be used in
 text mode.
 
@@ -58,25 +53,25 @@ drakproxy: proxies configuration
 
 drakvpn: VPN configuration (openvpn, vpnc)
 
-%package applet
-Summary: Mandriva network applet
-Group: System/Configuration/Networking
-Requires: %{name} = %{version}-%{release}
+%package	applet
+Summary:	Mandriva network applet
+Group:		System/Configuration/Networking
+Requires:	%{name} = %{version}-%{release}
 
-%description applet
+%description	applet
 This package contains the Mandriva network applet.
 
-%package -n %{libname}
-Summary: Mandriva network tools library
-Group: System/Configuration/Networking
-Requires: drakxtools-backend >= %{drakxtools_ver}
+%package -n	%{libname}
+Summary:	Mandriva network tools library
+Group:		System/Configuration/Networking
+Requires:	drakxtools-backend >= %{drakxtools_ver}
 # require perl-Net-Telnet for OpenVPN connections (#36126):
-Requires: perl-Net-Telnet
+Requires:	perl-Net-Telnet
 # Require crda, iw and wireless-regdb for CRDA domain settings (#47324)
-Requires: crda
-Requires: iw
-Requires: wireless-regdb
-Conflicts: drakxtools-backend <= 10.4.83
+Requires:	crda
+Requires:	iw
+Requires:	wireless-regdb
+Conflicts:	drakxtools-backend <= 10.4.83
 
 %description -n	%{libname}
 This package contains the Mandriva network tools library.
@@ -89,14 +84,9 @@ This package contains the Mandriva network tools library.
 %make
 
 %install
-rm -rf %{buildroot}
 %makeinstall_std
 
-#fix ugly error with patch
-rm -f %{buildroot}/usr/lib/libDrakX/network/*pm*~
-rm -f %{buildroot}/usr/lib/libDrakX/network/connection/*pm*~
-
-(cd %{buildroot}; find usr/lib/libDrakX/network/ -type f -name '*.pm') | perl -ne 'm!/%{gtk_files}$! ? print STDERR "/$_" : print "/$_"' > %{name}-nogtk.list 2> %{name}-gtk.list
+find %{buildroot}%{_prefix}/lib/libDrakX/network/ -type f -name '*.pm'| sed -e 's#^%{buildroot}/##g' | perl -ne 'm!/%{gtk_files}$! ? print STDERR "/$_" : print "/$_"' > %{name}-nogtk.list 2> %{name}-gtk.list
 
 %find_lang %{name} %{name}.lang
 cat %{name}-nogtk.list %{name}.lang > %{name}.list
@@ -104,9 +94,6 @@ cat %{name}-nogtk.list %{name}.lang > %{name}.list
 # consolehelper config
 # ask for user password
 ln -s %{_bindir}/consolehelper %{buildroot}%{_bindir}/draknetcenter
-
-mkdir -p %{buildroot}%{_sysconfdir}/pam.d/
-mkdir -p %{buildroot}%{_sysconfdir}/security/console.apps/
 
 ln -sf %{_sysconfdir}/pam.d/mandriva-console-auth %{buildroot}%{_sysconfdir}/pam.d/draknetcenter
 
@@ -136,11 +123,7 @@ while read f; do
 done < %{name}-nogtk.list
 exit 0
 
-%clean
-rm -rf %{buildroot}
-
 %files -f %{name}-gtk.list
-%defattr(-,root,root)
 %doc NEWS
 %{_bindir}/drakroam
 %{_bindir}/draknetcenter
@@ -186,7 +169,6 @@ rm -rf %{buildroot}
 %{_sbindir}/drakvpn
 
 %files -n %{libname} -f %{name}.list
-%defattr(-,root,root)
 %dir %{_prefix}/lib/libDrakX/network/
 %dir %{_prefix}/lib/libDrakX/network/connection
 %dir %{_prefix}/lib/libDrakX/network/connection/isdn

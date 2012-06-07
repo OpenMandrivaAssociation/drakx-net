@@ -23,12 +23,10 @@ Requires:	perl-Gtk2 >= 1.154
 Requires:	usermode-consoleonly >= 1.92-4mdv2008.0
 Conflicts:	drakxtools <= 10.4.83
 Suggests:	net_monitor
-Suggests:	%{name}-applet
+Suggests:	networkmanager
 
 %description
 This package contains the Mandriva network tools.
-
-net_applet: applet to check network connection
 
 %package	text
 Summary:	Mandriva network text tools

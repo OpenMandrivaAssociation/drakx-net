@@ -10,7 +10,7 @@ Version:	0.98
 Release:	1
 Source0:	%{name}-%{version}.tar.xz
 Patch0:		%{name}-nm-applet-disable-with-NM.patch
-License:	GPL
+License:	GPLv2+
 Group:		System/Configuration/Networking
 Url:		http://wiki.mandriva.com/en/Tools
 BuildArch:	noarch

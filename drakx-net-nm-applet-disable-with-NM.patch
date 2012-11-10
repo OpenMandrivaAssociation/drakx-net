@@ -1,0 +1,24 @@
+--- drakx-net-0.96/bin/net_applet	2012-01-15 01:25:37.000000000 +0400
++++ drakx-net-0.96/bin/net_applet.new	2012-01-15 23:22:09.000000000 +0400
+@@ -28,6 +28,21 @@
+ my $system_file = '/etc/sysconfig/drakx-net';
+ shouldStart() or die "$onstartupfile should be set to TRUE or use net_applet --force\n";
+ 
++#Check for NM
++	foreach (all("$::prefix/etc/sysconfig/network-scripts")) {
++	my ($device) = /^ifcfg-([A-Za-z0-9.:_-]+)$/;
++	next if $device =~ /.rpmnew$|.rpmsave$/;
++	if ($device && $device ne 'lo') {
++		my $file = network::network::get_ifcfg_file($device);
++		my $NM_control = { getVarsFromSh($file) }->{NM_CONTROLLED};
++		if ( $NM_control eq 'yes') 
++			{
++				print "Found NM-controlled interface";
++				exit;
++			}
++	}
++    }
++
+ #- Allow multiple instances, but only one per user:
+ is_running('net_applet') and die "net_applet already running\n";
+ 

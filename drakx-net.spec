@@ -7,7 +7,7 @@
 Summary:	Mandriva network tools
 Name:		drakx-net
 Version:	0.99
-Release:	1
+Release:	3
 Source0:	%{name}-%{version}.tar.xz
 Patch0:		%{name}-nm-applet-disable-with-NM.patch
 License:	GPLv2+

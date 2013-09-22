@@ -1,0 +1,11 @@
+--- drakx-net-1.20.1/po/de.po.orig	2013-09-22 13:05:02.103582296 +0100
++++ drakx-net-1.20.1/po/de.po	2013-09-22 13:05:20.038581248 +0100
+@@ -876,7 +876,7 @@
+ #: ../bin/draknetprofile:37
+ #, c-format
+ msgid "Network profiles"
+-msgstr "Netzwerprofile"
++msgstr "Netzwerkprofile"
+ 
+ #: ../bin/draknetprofile:66
+ #, fuzzy, c-format

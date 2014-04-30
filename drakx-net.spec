@@ -6,14 +6,12 @@
 
 Summary:	Mandriva network tools
 Name:		drakx-net
-Version:	1.20.1
-Release:	3
+Version:	1.25
+Release:	1
 Source0:	%{name}-%{version}.tar.xz
-Patch0:		%{name}-nm-applet-disable-with-NM.patch
-Patch1:		drakx-net-1.20.1-de_typo.patch
 License:	GPLv2+
 Group:		System/Configuration/Networking
-Url:		http://wiki.mandriva.com/en/Tools
+Url:		https://abf.io/omv_software/drakx-net
 BuildArch:	noarch
 BuildRequires:	intltool
 Requires:	drakxtools >= %{drakxtools_ver}
@@ -27,17 +25,17 @@ Suggests:	net_monitor
 Suggests:	networkmanager
 
 %description
-This package contains the Mandriva network tools.
+This package contains the OpenMandriva network tools.
 
-%package	text
-Summary:	Mandriva network text tools
+%package text
+Summary:	OpenMandriva network text tools
 Group:		System/Configuration/Networking
 Requires:	drakxtools-curses >= %{drakxtools_ver}
 Requires:	%{libname} = %{version}
 Conflicts:	drakxtools-curses <= 10.4.83
 Conflicts:	mdkonline < 2.37
 
-%description	text
+%description text
 This package contains the Mandriva network tools that can be used in
 text mode.
 
@@ -52,16 +50,16 @@ drakproxy: proxies configuration
 
 drakvpn: VPN configuration (openvpn, vpnc)
 
-%package	applet
-Summary:	Mandriva network applet
+%package applet
+Summary:	OpenMandriva network applet
 Group:		System/Configuration/Networking
 Requires:	%{name} = %{version}-%{release}
 
-%description	applet
+%description applet
 This package contains the Mandriva network applet.
 
-%package -n	%{libname}
-Summary:	Mandriva network tools library
+%package -n %{libname}
+Summary:	OpenMandriva network tools library
 Group:		System/Configuration/Networking
 Requires:	drakxtools-backend >= %{drakxtools_ver}
 # require perl-Net-Telnet for OpenVPN connections (#36126):
@@ -77,8 +75,6 @@ This package contains the Mandriva network tools library.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
 
 %build
 %make

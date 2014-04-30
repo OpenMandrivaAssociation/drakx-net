@@ -2,7 +2,7 @@
 
 %define libname lib%{name}
 
-%define gtk_files (connection_manager|drakroam|ifw|monitor|netcenter|drakconnect/edit|drakconnect/global).pm
+%define gtk_files (connection_manager/gtk|signal_strength|drakroam|ifw|netcenter|drakconnect/edit|drakconnect/global).pm
 
 Summary:	Mandriva network tools
 Name:		drakx-net
@@ -82,7 +82,7 @@ This package contains the Mandriva network tools library.
 %install
 %makeinstall_std
 
-find %{buildroot}%{_prefix}/lib/libDrakX/network/ -type f -name '*.pm'| sed -e 's#^%{buildroot}/##g' | perl -ne 'm!/%{gtk_files}$! ? print STDERR "/$_" : print "/$_"' > %{name}-nogtk.list 2> %{name}-gtk.list
+(cd %{buildroot}; find usr/lib/libDrakX/network/ -type f -name '*.pm') | perl -ne 'm!/%{gtk_files}$! ? print STDERR "/$_" : print "/$_"' > %{name}-nogtk.list 2> %{name}-gtk.list
 
 %find_lang %{name} %{name}.lang
 cat %{name}-nogtk.list %{name}.lang > %{name}.list

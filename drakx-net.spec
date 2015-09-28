@@ -6,8 +6,8 @@
 
 Summary:	Mandriva network tools
 Name:		drakx-net
-Version:	1.25
-Release:	5
+Version:	1.25.1
+Release:	1
 Source0:	%{name}-%{version}.tar.xz
 License:	GPLv2+
 Group:		System/Configuration/Networking

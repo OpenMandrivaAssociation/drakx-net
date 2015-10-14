@@ -1,4 +1,4 @@
-%define drakxtools_ver 12.36
+%define drakxtools_ver 16.00
 
 %define libname lib%{name}
 
@@ -6,7 +6,7 @@
 
 Summary:	Mandriva network tools
 Name:		drakx-net
-Version:	1.25.1
+Version:	2.23
 Release:	1
 Source0:	%{name}-%{version}.tar.xz
 License:	GPLv2+
@@ -18,8 +18,7 @@ Requires:	drakxtools >= %{drakxtools_ver}
 Requires:	%{name}-text = %{version}
 Requires:	%{libname} = %{version}
 Requires:	netprofile >= 0.20
-Requires:	perl-Gtk2 >= 1.154
-Requires:	usermode-consoleonly >= 1.92-4mdv2008.0
+Requires:	perl-Gtk3 >= 1.154
 Conflicts:	drakxtools <= 10.4.83
 Suggests:	net_monitor
 Suggests:	networkmanager
@@ -87,82 +86,63 @@ This package contains the Mandriva network tools library.
 %find_lang %{name} %{name}.lang
 cat %{name}-nogtk.list %{name}.lang > %{name}.list
 
-# consolehelper config
-# ask for user password
-ln -s %{_bindir}/consolehelper %{buildroot}%{_bindir}/draknetcenter
-
-ln -sf %{_sysconfdir}/pam.d/mandriva-console-auth %{buildroot}%{_sysconfdir}/pam.d/draknetcenter
-
-cat > %{buildroot}%{_sysconfdir}/security/console.apps/draknetcenter <<EOF
-USER=<user>
-PROGRAM=/usr/sbin/draknetcenter
-FALLBACK=false
-SESSION=true
-EOF
-
-# consolehelper config
-# ask for root password
-for pak in drakconnect drakgw drakroam draknetprofile drakproxy drakvpn drakhosts; do
-        ln -s %{_bindir}/consolehelper %{buildroot}%{_bindir}/$pak
-        ln -sf %{_sysconfdir}/pam.d/mandriva-simple-auth %{buildroot}%{_sysconfdir}/pam.d/$pak
-        cat > %{buildroot}%{_sysconfdir}/security/console.apps/$pak <<EOF
-USER=root
-PROGRAM=/usr/sbin/$pak
-FALLBACK=false
-SESSION=true
-EOF
-done
-
 %check
 while read f; do
-      grep Gtk2 %{buildroot}$f && exit 1
+      grep Gtk3 %{buildroot}$f && exit 1
 done < %{name}-nogtk.list
 exit 0
 
 %files -f %{name}-gtk.list
 %doc NEWS
-%{_bindir}/drakroam
 %{_bindir}/draknetcenter
 %{_bindir}/draknetprofile
 %{_bindir}/drakhosts
-%{_sbindir}/drakhosts
-%{_sbindir}/drakids
-%{_sbindir}/draknetcenter
-%{_sbindir}/draknetprofile
-%{_sbindir}/draknfs
-%{_sbindir}/drakroam
-%{_sbindir}/draksambashare
-%config(noreplace) %{_sysconfdir}/pam.d/drakroam
-%config(noreplace) %{_sysconfdir}/pam.d/draknetcenter
-%config(noreplace) %{_sysconfdir}/pam.d/draknetprofile
-%config(noreplace) %{_sysconfdir}/pam.d/drakhosts
-%config(noreplace) %{_sysconfdir}/security/console.apps/drakroam
-%config(noreplace) %{_sysconfdir}/security/console.apps/draknetprofile
-%config(noreplace) %{_sysconfdir}/security/console.apps/draknetcenter
-%config(noreplace) %{_sysconfdir}/security/console.apps/drakhosts
+%{_bindir}/drakids
+%{_bindir}/draknfs
+%{_bindir}/drakroam
+%{_bindir}/draksambashare
 %{_datadir}/applications/draknetcenter.desktop
 %{_prefix}/lib/libDrakX/icons/*.png
 %{_datadir}/libDrakX/pixmaps/*.png
+%{_libexecdir}/draknetcenter
+%{_libexecdir}/draknetprofile
+%{_libexecdir}/drakhosts
+%{_libexecdir}/drakids
+%{_libexecdir}/draknfs
+%{_libexecdir}/drakroam
+%{_libexecdir}/draksambashare
+%{_datadir}/polkit-1/actions/org.openmandriva.draknetcenter.policy
+%{_datadir}/polkit-1/actions/org.openmandriva.draknetprofile.policy
+%{_datadir}/polkit-1/actions/org.openmandriva.drakhosts.policy
+%{_datadir}/polkit-1/actions/org.openmandriva.drakids.policy
+%{_datadir}/polkit-1/actions/org.openmandriva.draknfs.policy
+%{_datadir}/polkit-1/actions/org.openmandriva.drakroam.policy
+%{_datadir}/polkit-1/actions/org.openmandriva.draksambashare.policy
+%{_datadir}/polkit-1/actions/com.redhat.initscripts.ifdown.policy
+%{_datadir}/polkit-1/actions/com.redhat.initscripts.ifup.policy
+%{_datadir}/polkit-1/actions/com.redhat.initscripts.vpn-start.policy
+%{_datadir}/polkit-1/actions/com.redhat.initscripts.vpn-stop.policy
+%{_datadir}/polkit-1/actions/org.openmandriva-x.set-netprofile.policy
 
 %files text
-%config(noreplace) %{_sysconfdir}/pam.d/drakconnect
-%config(noreplace) %{_sysconfdir}/pam.d/drakgw
-%config(noreplace) %{_sysconfdir}/pam.d/drakproxy
-%config(noreplace) %{_sysconfdir}/pam.d/drakvpn
-%config(noreplace) %{_sysconfdir}/security/console.apps/drakconnect
-%config(noreplace) %{_sysconfdir}/security/console.apps/drakgw
-%config(noreplace) %{_sysconfdir}/security/console.apps/drakproxy
-%config(noreplace) %{_sysconfdir}/security/console.apps/drakvpn
 %{_bindir}/drakconnect
 %{_bindir}/drakgw
 %{_bindir}/drakvpn
 %{_bindir}/drakproxy
-%{_sbindir}/drakconnect
-%{_sbindir}/drakfirewall
-%{_sbindir}/drakgw
-%{_sbindir}/drakinvictus
-%{_sbindir}/drakproxy
-%{_sbindir}/drakvpn
+%{_bindir}/drakfirewall
+%{_bindir}/drakinvictus
+%{_libexecdir}/drakconnect
+%{_libexecdir}/drakgw
+%{_libexecdir}/drakvpn
+%{_libexecdir}/drakproxy
+%{_libexecdir}/drakfirewall
+%{_libexecdir}/drakinvictus
+%{_datadir}/polkit-1/actions/org.openmandriva.drakconnect.policy
+%{_datadir}/polkit-1/actions/org.openmandriva.drakgw.policy
+%{_datadir}/polkit-1/actions/org.openmandriva.drakvpn.policy
+%{_datadir}/polkit-1/actions/org.openmandriva.drakproxy.policy
+%{_datadir}/polkit-1/actions/org.openmandriva.drakfirewall.policy
+%{_datadir}/polkit-1/actions/org.openmandriva.drakinvictus.policy
 
 %files -n %{libname} -f %{name}.list
 %dir %{_prefix}/lib/libDrakX/network/

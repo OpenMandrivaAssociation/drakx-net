@@ -1,4 +1,5 @@
 removed_sources:
+  drakx-net-1.25.1.tar.xz: 1aff36cf25311e91b3c0dcd36a459a91e0f8f738
   drakx-net-1.25.tar.xz: fa7767caf4604761a0783ff3dafd343c181f6597
 sources:
-  drakx-net-1.25.1.tar.xz: 1aff36cf25311e91b3c0dcd36a459a91e0f8f738
+  drakx-net-2.23.tar.xz: 3322646a3c95297c13c0f21dc5a2f8925798ada1

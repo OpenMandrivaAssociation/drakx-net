@@ -18,7 +18,7 @@ Requires:	drakxtools >= %{drakxtools_ver}
 Requires:	%{name}-text = %{version}
 Requires:	%{libname} = %{version}
 Requires:	netprofile >= 0.20
-Requires:	perl-Gtk3 >= 1.154
+Requires:	perl-Gtk3
 Conflicts:	drakxtools <= 10.4.83
 Suggests:	net_monitor
 Suggests:	networkmanager

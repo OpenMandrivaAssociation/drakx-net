@@ -7,7 +7,7 @@
 Summary:	Mandriva network tools
 Name:		drakx-net
 Version:	2.23
-Release:	1
+Release:	2
 Source0:	%{name}-%{version}.tar.xz
 License:	GPLv2+
 Group:		System/Configuration/Networking
@@ -19,6 +19,7 @@ Requires:	%{name}-text = %{version}
 Requires:	%{libname} = %{version}
 Requires:	netprofile >= 0.20
 Requires:	perl-Gtk3
+Requires:	perl-Gtk3-Helper
 Conflicts:	drakxtools <= 10.4.83
 Suggests:	net_monitor
 Suggests:	networkmanager
